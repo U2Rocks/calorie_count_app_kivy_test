@@ -1,0 +1,95 @@
+ContentTab:
+
+<ContentTab>
+    do_default_tab: False
+    size_hint: 1, 1
+    tab_width: self.width / 2
+    # background_color: (209, 105, 84, .2)
+
+    TabbedPanelItem:
+        text: "Calorie List"
+        CalTotalScreen:
+
+    TabbedPanelItem:
+        text: "Add Items to List"
+        SearchForItemScreen:
+
+
+
+<SearchForItemScreen>:
+    cols: 1
+    GridLayout:
+        cols:2
+        size_hint: 1, .055
+        TextInput:
+            id: search_text_input
+            size_hint: .7, None
+            height: "30dp"
+            text: "search for McDonald's item here"
+            multiline: False
+            on_focus: self.text = ""
+        Button:
+            text: "Search"
+            size_hint: .3, None
+            height: "30dp"
+            on_press: root.get_text_from_search_bar()
+
+    ScrollView:
+        size_hint: 1, .9
+        GridLayout:
+            id: search_results_grid
+            cols: 1
+            height: self.minimum_height
+            size_hint_y: None
+
+
+
+
+<CalTotalScreen>:
+    cols: 1
+
+    Label:
+        text: "Total Calories"
+        pos_hint: {"top": 1}
+        size_hint: 1, None
+        height: "60dp"
+        font_size: "25dp"
+
+    ScrollView:
+        size_hint: 1, .7
+        GridLayout:
+            id: cal_home_item_grid
+            cols: 1
+            size_hint_y: None
+            height: self.minimum_height
+
+
+
+    GridLayout:
+        size_hint: 1, None
+        height: "50dp"
+        cols: 3
+
+        Button:
+            background_color: 0, 0, 1, 1
+            text: "Clear List"
+            on_press: root.remove_rows()
+        Button:
+            background_color: 1, 0, 0, 1
+            text: "Remove Bottom Row"
+            on_press: root.remove_bottom_row()
+        Button:
+            background_color: 1, 0, 0, 1
+            text: "Refresh and Calculate"
+            on_press: root.refresh_cal_list()
+
+    GridLayout:
+        size_hint: 1, None
+        height: "50dp"
+        cols: 2
+
+        Label:
+            text: "Total Calorie Count"
+        Label:
+            id: final_calorie_label
+            text: "0 Cal"
